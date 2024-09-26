@@ -1,0 +1,40 @@
+# Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Build artifacts
+bin/
+out/
+
+# Go module files
+*.mod
+*.sum
+
+# IDE and Editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.iml
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage output
+*.out
+coverage.txt
+
+# Vendor directory (if using Go modules, you might want to keep this)
+# vendor/
