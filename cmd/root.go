@@ -10,7 +10,7 @@ import (
 var rootCmd = &cobra.Command{
     Use:   "infratoolbox",
     Short: "InfraToolbox is a unified CLI for infrastructure management",
-    Long:  "InfraToolbox integrates Terraform, Terragrunt, TFLint, and other tools into a single CLI for managing infrastructure efficiently.",
+    Long:  "InfraToolbox integrates Terraform, TFLint, and other tools into a single CLI for managing infrastructure efficiently.",
     CompletionOptions: cobra.CompletionOptions{ DisableDefaultCmd: true },
     DisableFlagsInUseLine: true,
     Run: func(cmd *cobra.Command, args []string) {
