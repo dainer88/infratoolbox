@@ -7,17 +7,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var applyCmd = &cobra.Command{
-    Use:   "apply",
-    Short: "Run terraform apply",
+var initCmd = &cobra.Command{
+    Use:   "init",
+    Short: "Run terraform init",
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Running terraform apply with arguments:", args)
-        runTerraformApply(args)
+        fmt.Println("Running terraform init with arguments:", args)
+        runTerraformInit(args)
     },
 }
 
-func runTerraformApply(args []string) {
-    cmdArgs := append([]string{"apply"}, args...)
+func runTerraformInit(args []string) {
+    cmdArgs := append([]string{"init"}, args...)
     cmd := exec.Command("terraform", cmdArgs...)
     cmd.Stdout = cmd.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
@@ -27,5 +27,5 @@ func runTerraformApply(args []string) {
 }
 
 func init() {
-    rootCmd.AddCommand(applyCmd)
+    rootCmd.AddCommand(initCmd)
 }

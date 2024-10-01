@@ -1,0 +1,1 @@
+// outputs.tf - Define your outputs here%!(EXTRA string=test)
