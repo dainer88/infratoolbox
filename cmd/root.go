@@ -7,6 +7,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+    version = "0.1.0"
+)
+
 var rootCmd = &cobra.Command{
     Use:   "infratoolbox",
     Short: "InfraToolbox is a unified CLI for infrastructure management",
@@ -14,34 +18,16 @@ var rootCmd = &cobra.Command{
     CompletionOptions: cobra.CompletionOptions{ DisableDefaultCmd: true },
     DisableFlagsInUseLine: true,
     Run: func(cmd *cobra.Command, args []string) {
-        cmd.Help()
+        if cmd.Flags().Changed("version") {
+            fmt.Printf("InfraToolbox version: %s\n", version)
+        } else {
+            cmd.Help()
+        }
     },
 }
 
 func Execute() {
-    rootCmd.SetHelpTemplate(`
-{{if .Long}}{{.Long}}
-{{end}}
-Usage:
-  {{.UseLine}} [command] [flags]
-
-{{if .HasAvailableSubCommands}}
-Available Commands:{{range .Commands}}{{if (and .IsAvailableCommand (not .Hidden))}}
-  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}
-{{if .HasAvailableLocalFlags}}
-Flags:
-{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}
-{{end}}
-{{if .HasAvailableInheritedFlags}}Global Flags:
-{{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}
-{{end}}
-{{if .HasHelpSubCommands}}Additional help topics:
-{{range .Commands}}{{if .IsHelpCommand}}
-  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}
-{{end}}{{if .HasAvailableSubCommands}}
-Use "{{.CommandPath}} [command] --help" for more information about a command.
-{{end}}
-`)
+    rootCmd.Flags().BoolP("version", "v", false, "Print the version number")
     if err := rootCmd.Execute(); err != nil {
         fmt.Println(err)
         os.Exit(1)
