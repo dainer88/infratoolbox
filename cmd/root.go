@@ -16,7 +16,6 @@ var rootCmd = &cobra.Command{
     Short: "InfraToolbox is a unified CLI for infrastructure management",
     Long:  "InfraToolbox integrates Terraform, TFLint, and other tools into a single CLI for managing infrastructure efficiently.",
     CompletionOptions: cobra.CompletionOptions{ DisableDefaultCmd: true },
-    DisableFlagsInUseLine: true,
     Run: func(cmd *cobra.Command, args []string) {
         if cmd.Flags().Changed("version") {
             fmt.Printf("InfraToolbox version: %s\n", version)
