@@ -1,1 +1,0 @@
-// main.tf - Terraform configuration%!(EXTRA string=test)

@@ -1,1 +1,0 @@
-// variables.tf - Define your variables here%!(EXTRA string=test)
