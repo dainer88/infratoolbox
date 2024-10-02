@@ -25,7 +25,7 @@ func runTerraformPlan(args []string) {
     cmd.Stderr = os.Stderr
 
     if err := cmd.Run(); err != nil {
-        fmt.Printf("Error running doc: %v\n", err)
+        fmt.Printf("Error running plan: %v\n", err)
     }
 }
 

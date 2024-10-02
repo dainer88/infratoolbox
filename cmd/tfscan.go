@@ -12,7 +12,7 @@ var checkovCmd = &cobra.Command{
     Use:   "scan",
     Short: "Run scan to perform security scan",
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Running checkov    with arguments:", args)
+        fmt.Println("Running scan with arguments:", args)
         runCheckov(args)
     },
 }
@@ -23,7 +23,7 @@ func runCheckov(args []string) {
     cmd.Stderr = os.Stderr
 
     if err := cmd.Run(); err != nil {
-        fmt.Printf("Error running doc: %v\n", err)
+        fmt.Printf("Error running scan: %v\n", err)
     }
 }
 

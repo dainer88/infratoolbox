@@ -12,7 +12,7 @@ var lintCmd = &cobra.Command{
     Use:   "lint",
     Short: "Run TFLint to lint Terraform code",
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Running tflint with arguments:", args)
+        fmt.Println("Running lint with arguments:", args)
         runTfLint(args)
     },
 }
@@ -24,7 +24,7 @@ func runTfLint(args []string) {
     cmd.Stderr = os.Stderr
 
     if err := cmd.Run(); err != nil {
-        fmt.Printf("Error running doc: %v\n", err)
+        fmt.Printf("Error running lint: %v\n", err)
     }
 }
 
