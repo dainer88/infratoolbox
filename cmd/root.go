@@ -27,6 +27,7 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
     rootCmd.Flags().BoolP("version", "v", false, "Print the version number")
+    rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
     if err := rootCmd.Execute(); err != nil {
         fmt.Println(err)
         os.Exit(1)
