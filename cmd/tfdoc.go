@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -11,18 +12,17 @@ var tfdocCmd = &cobra.Command{
     Use:   "doc",
     Short: "Run terraform doc",
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Running terraform doc with arguments:", args)
         runTerraformDoc(args)
     },
 }
 
 func runTerraformDoc(args []string) {
-    cmdArgs := append([]string{"markdown . > README.md"}, args...)
+    cmdArgs := append([]string{"markdown", "."}, args...)
     cmd := exec.Command("terraform-docs", cmdArgs...)
-    cmd.Stdout = cmd.Stderr
-    if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running init: %v\n", err)
-        fmt.Printf("Checkov output: %s\n", output)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    if err := cmd.Run(); err != nil {
+        fmt.Printf("Error running doc: %v\n", err)
     }
 }
 

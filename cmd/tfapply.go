@@ -29,8 +29,8 @@ func runTerraformApply(args []string) {
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running Checkov: %v\n", err)
-        fmt.Printf("Checkov output: %s\n", output)
+        fmt.Printf("Error running Apply: %v\n", err)
+        fmt.Printf("Apply output: %s\n", output)
     }
 }
 

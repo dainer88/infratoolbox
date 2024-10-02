@@ -22,7 +22,7 @@ func runTfLint(args []string) {
     tflintCmd.Stdout = tflintCmd.Stderr
     if output, err := tflintCmd.CombinedOutput(); err != nil {
         fmt.Printf("Error running lint: %v\n", err)
-        fmt.Printf("Checkov output: %s\n", output)
+        fmt.Printf("Lint output: %s\n", output)
     }
 }
 

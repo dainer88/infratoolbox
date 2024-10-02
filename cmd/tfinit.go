@@ -22,7 +22,7 @@ func runTerraformInit(args []string) {
     cmd.Stdout = cmd.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
         fmt.Printf("Error running init: %v\n", err)
-        fmt.Printf("Checkov output: %s\n", output)
+        fmt.Printf("Init output: %s\n", output)
     }
 }
 

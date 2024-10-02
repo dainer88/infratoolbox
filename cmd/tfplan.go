@@ -23,7 +23,7 @@ func runTerraformPlan(args []string) {
     cmd.Stdout = cmd.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
         fmt.Printf("Error running plan: %v\n", err)
-        fmt.Printf("Checkov output: %s\n", output)
+        fmt.Printf("Plan output: %s\n", output)
     }
 }
 
