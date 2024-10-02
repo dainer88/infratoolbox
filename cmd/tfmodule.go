@@ -9,7 +9,7 @@ import (
 )
 
 var newModuleCmd = &cobra.Command{
-    Use:   "new-module [module-name]",
+    Use:   "module [module-name]",
     Short: "Create a new Terraform module",
     Long:  `Creates a new directory with the basic files for a Terraform module (main.tf, variables.tf, outputs.tf, README.md).`,
     Args:  cobra.ExactArgs(1),
