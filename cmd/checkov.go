@@ -20,7 +20,7 @@ func runCheckov(args []string) {
     cmd := exec.Command("checkov", args...)
     cmd.Stdout = cmd.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running Checkov: %v\n", err)
+        fmt.Printf("Error running scan: %v\n", err)
         fmt.Printf("Checkov output: %s\n", output)
     }
 }

@@ -21,7 +21,7 @@ func runTerraformInit(args []string) {
     cmd := exec.Command("terraform", cmdArgs...)
     cmd.Stdout = cmd.Stderr
     if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running Checkov: %v\n", err)
+        fmt.Printf("Error running init: %v\n", err)
         fmt.Printf("Checkov output: %s\n", output)
     }
 }

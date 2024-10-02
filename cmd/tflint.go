@@ -21,7 +21,7 @@ func runTfLint(args []string) {
     tflintCmd := exec.Command("tflint", args...)
     tflintCmd.Stdout = tflintCmd.Stderr
     if output, err := tflintCmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running Checkov: %v\n", err)
+        fmt.Printf("Error running lint: %v\n", err)
         fmt.Printf("Checkov output: %s\n", output)
     }
 }
