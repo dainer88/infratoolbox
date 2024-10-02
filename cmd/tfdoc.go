@@ -21,6 +21,7 @@ func runTerraformDoc(args []string) {
     cmd := exec.Command("terraform-docs", cmdArgs...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+    
     if err := cmd.Run(); err != nil {
         fmt.Printf("Error running doc: %v\n", err)
     }

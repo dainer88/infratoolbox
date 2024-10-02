@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -18,11 +19,12 @@ var lintCmd = &cobra.Command{
 
 func runTfLint(args []string) {
     fmt.Println("Running TFLint...")
-    tflintCmd := exec.Command("tflint", args...)
-    tflintCmd.Stdout = tflintCmd.Stderr
-    if output, err := tflintCmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running lint: %v\n", err)
-        fmt.Printf("Lint output: %s\n", output)
+    cmd := exec.Command("tflint", args...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+
+    if err := cmd.Run(); err != nil {
+        fmt.Printf("Error running doc: %v\n", err)
     }
 }
 

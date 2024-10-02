@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -18,10 +19,11 @@ var checkovCmd = &cobra.Command{
 
 func runCheckov(args []string) {
     cmd := exec.Command("checkov", args...)
-    cmd.Stdout = cmd.Stderr
-    if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running scan: %v\n", err)
-        fmt.Printf("Scan output: %s\n", output)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+
+    if err := cmd.Run(); err != nil {
+        fmt.Printf("Error running doc: %v\n", err)
     }
 }
 

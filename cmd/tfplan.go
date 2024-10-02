@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -20,10 +21,11 @@ var planCmd = &cobra.Command{
 func runTerraformPlan(args []string) {
     cmdArgs := append([]string{"plan"}, args...)
     cmd := exec.Command("terraform", cmdArgs...)
-    cmd.Stdout = cmd.Stderr
-    if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running plan: %v\n", err)
-        fmt.Printf("Plan output: %s\n", output)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+
+    if err := cmd.Run(); err != nil {
+        fmt.Printf("Error running doc: %v\n", err)
     }
 }
 

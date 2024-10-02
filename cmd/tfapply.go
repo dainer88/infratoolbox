@@ -28,9 +28,9 @@ func runTerraformApply(args []string) {
     cmd := exec.Command("terraform", cmdArgs...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
-    if output, err := cmd.CombinedOutput(); err != nil {
-        fmt.Printf("Error running Apply: %v\n", err)
-        fmt.Printf("Apply output: %s\n", output)
+    
+    if err := cmd.Run(); err != nil {
+        fmt.Printf("Error running apply: %v\n", err)
     }
 }
 

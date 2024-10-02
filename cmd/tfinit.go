@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -19,10 +20,11 @@ var initCmd = &cobra.Command{
 func runTerraformInit(args []string) {
     cmdArgs := append([]string{"init"}, args...)
     cmd := exec.Command("terraform", cmdArgs...)
-    cmd.Stdout = cmd.Stderr
-    if output, err := cmd.CombinedOutput(); err != nil {
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    
+    if err := cmd.Run(); err != nil {
         fmt.Printf("Error running init: %v\n", err)
-        fmt.Printf("Init output: %s\n", output)
     }
 }
 
