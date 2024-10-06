@@ -27,8 +27,9 @@ function install_tool {
 }
 
 # Install necessary tools using Homebrew
-install_tool tfenv
+install_tool terraform
 install_tool terraform-docs
+install_tool tfenv
 install_tool tflint
 install_tool checkov
 
