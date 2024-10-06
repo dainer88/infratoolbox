@@ -20,7 +20,7 @@ jobs:
 
     - name: Build
       run: |
-        go mod init
+        go mod init infratoolbox
         go build
         tar -cvzf infratoolbox.tar.gz infratoolbox
 
