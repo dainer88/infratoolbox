@@ -1,10 +1,10 @@
 # InfraToolbox
 
-InfraToolbox integrates Terraform, TFEnv, TFLint, Checkov, and other tools into a single CLI for managing infrastructure efficiently. It simplifies the execution of multiple infrastructure-as-code tools, providing a unified interface for everyday operations.
+InfraToolbox integrates Terraform, Terraform Docs, TFEnv, TFLint, Checkov, into a single CLI for managing infrastructure efficiently. It simplifies the execution of multiple infrastructure-as-code tools, providing a unified interface for everyday operations.
 
 ## Features
 
-- **Unified CLI**: Run multiple infrastructure tools like Terraform, Terragrunt, TFLint, and Checkov with one command-line tool.
+- **Unified CLI**: Run multiple infrastructure tools like Terraform, Terraform Docs, TFEnv, TFLint, and Checkov with one command-line tool.
 - **Module Creation**: Automatically generate new Terraform module templates, ready for customization.
 - **Security Scans**: Ensure the security of your infrastructure using Checkov.
 - **Linting**: Enforce Terraform best practices by using TFLint.
@@ -40,12 +40,6 @@ brew install infratoolbox
     ```bash
     ./install.sh
     ````
-
-4. Add InfraToolbox to your system's PATH:
-
-    ```bash
-    export PATH=$PATH:/path/to/infratoolbox/bin
-    ```
 
 ## Usage
 
