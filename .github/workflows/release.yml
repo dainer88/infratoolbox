@@ -21,6 +21,7 @@ jobs:
     - name: Build
       run: |
         go mod init github.com/dainer88/infratoolbox
+        go mod tidy
         go build
         tar -cvzf infratoolbox.tar.gz infratoolbox
 
