@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.23.2'
+
+    - name: Build
+      run: |
+        go build
+        tar -cvzf infratoolbox.tar.gz infratoolbox
+
+    - name: Calculate SHA256
+      id: sha256
+      run: |
+        echo "SHA256=$(sha256sum infratoolbox.tar.gz | awk '{ print $1 }')" >> $GITHUB_ENV
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag: ${{ github.ref }}
+        files: infratoolbox.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Update Homebrew Formula
+      run: |
+        # Cambia esta línea según el nombre de tu archivo de fórmula
+        FORMULA_FILE="path/to/your/formula.rb"
+        
+        # Actualiza la URL y SHA256 en la fórmula de Homebrew
+        sed -i.bak "s|url .*|url \"https://github.com/yourusername/yourrepo/releases/download/${GITHUB_REF}/infratoolbox.tar.gz\"|" $FORMULA_FILE
+        sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
+
+        # Commit los cambios
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git commit -am "Update Homebrew formula for release ${GITHUB_REF}"
+        git push origin main  # Cambia 'main' si tu rama principal tiene otro nombre
+
