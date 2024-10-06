@@ -10,7 +10,9 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestenv
+    env:
+      FILE_NAME: "infratoolbox${{ github.ref }}.tar.gz"
 
     steps:
     - name: Checkout code
@@ -26,18 +28,18 @@ jobs:
         go mod init github.com/dainer88/infratoolbox
         go mod tidy
         go build
-        tar -cvzf infratoolbox.tar.gz infratoolbox
+        tar -cvzf $FILE_NAME infratoolbox
 
     - name: Calculate SHA256
       id: sha256
       run: |
-        echo "SHA256=$(sha256sum infratoolbox.tar.gz | awk '{ print $1 }')" >> $GITHUB_ENV
+        echo "SHA256=$(sha256sum $FILE_NAME | awk '{ print $1 }')" >> $GITHUB_ENV
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         tag: ${{ github.ref }}
-        files: infratoolbox.tar.gz
+        files: $FILE_NAME
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -45,7 +47,7 @@ jobs:
       run: |
         FORMULA_FILE="infratoolbox.rb"
       
-        sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/infratoolbox.tar.gz\"|" $FORMULA_FILE
+        sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/$FILE_NAME\"|" $FORMULA_FILE
         sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
   
     - name: Push changes to Homebrew formula
