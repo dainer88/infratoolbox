@@ -24,30 +24,28 @@ jobs:
         go-version: '1.23.2'
     
     - name: Get tag name
-      id: get_tag_name
       run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
     - name: Define FILE_NAME
-      id: define_tar_file
-      run: echo "FILE_NAME=infratoolbox-${TAG_NAME}.tar.gz" >> $GITHUB_ENV
+      run: echo "FILE_NAME=infratoolbox${{ env.TAG_NAME }}.tar.gz" >> $GITHUB_ENV
 
     - name: Build
       run: |
         go mod init github.com/dainer88/infratoolbox
         go mod tidy
         go build
-        tar -cvzf $FILE_NAME infratoolbox
+        tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
     - name: Calculate SHA256
       id: sha256
       run: |
-        echo "SHA256=$(sha256sum $FILE_NAME | awk '{ print $1 }')" >> $GITHUB_ENV
+        echo "SHA256=$(sha256sum ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         tag: ${{ github.ref }}
-        files: $FILE_NAME
+        files: ${{ env.FILE_NAME }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,7 +53,7 @@ jobs:
       run: |
         FORMULA_FILE="infratoolbox.rb"
       
-        sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/$FILE_NAME\"|" $FORMULA_FILE
+        sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/${{ env.FILE_NAME }}\"|" $FORMULA_FILE
         sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
   
     - name: Push changes to Homebrew formula
@@ -63,6 +61,6 @@ jobs:
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
         git add infratoolbox.rb
-        git commit -am "Update Homebrew formule for release ${GITHUB_REF}"
+        git commit -am "Update Homebrew formule for release ${{ env.TAG_NAME }}"
         git push origin HEAD:refs/heads/master
 
