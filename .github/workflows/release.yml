@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latestenv
+    runs-on: ubuntu-latest
     env:
       FILE_NAME: "infratoolbox${{ github.ref }}.tar.gz"
 
