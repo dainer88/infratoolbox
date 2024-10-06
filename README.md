@@ -70,6 +70,50 @@ infratoolbox [command]
 | `scan`      | Run Checkov to scan infrastructure for security vulnerabilities |
 | `validate`  | Display the current version of InfraToolbox                     |
 
+## Compiling the Project
+
+To compile InfraToolbox from source, follow these steps:
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/yourusername/infratoolbox.git
+    ````
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd infratoolbox
+    ```
+
+3. Compile the project:
+
+    ```bash
+    go build
+    ````
+
+    This command will compile the project and generate an executable file.
+
+4. Run the executable:
+
+    After building, you can run InfraToolbox directly from the command line. For example:
+
+    ```bash
+    ./infratoolbox [command]
+    ```
+
+    Replace [command] with one of the available commands listed in the Usage section.
+
+5. Optional: Install the executable:
+
+    If you want to install the executable globally on your system, you can run:
+
+    ```bash
+    go install
+    ```
+
+    This will place the infratoolbox executable in your Go binaries directory, typically $GOPATH/bin or $HOME/go/bin.
+
 ## Contributing
 
 Contributions are welcome! To contribute:
