@@ -15,7 +15,7 @@ InfraToolbox integrates Terraform, Terraform Docs, TFEnv, TFLint, Checkov, into 
 ### Using Homebrew
 
 ```bash
-brew tap dainer88/infratoolbox-tap
+brew tap dainer88/infratoolbox
 brew install infratoolbox
 ```
 
