@@ -128,6 +128,11 @@ InfraToolbox utilizes the following open-source tools:
 - [TFLint](https://github.com/terraform-linters/tflint)
 - [Checkov](https://www.checkov.io)
 
+## Roadmap
+
+[![Roadmap](https://img.shields.io/badge/Roadmap-View%20here-blue)](./ROADMAP.md)
+
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](./LICENSE) file for details.
