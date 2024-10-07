@@ -83,6 +83,8 @@ To compile InfraToolbox from source, follow these steps:
 3. Compile the project:
 
     ```bash
+    go mod init github.com/dainer88/infratoolbox
+    go mod tidy
     go build
     ````
 
