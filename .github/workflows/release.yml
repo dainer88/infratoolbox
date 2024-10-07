@@ -34,7 +34,7 @@ jobs:
           if [ -z "$NOTES" ]; then
             NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d' | base64)
           fi
-          ${NOTES} > release_notes.txt
+          echo "${NOTES}" > release_notes.txt
 
       - name: Build
         run: |
