@@ -51,7 +51,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag: ${{ github.ref }}
+          tag_name: ${{ env.TAG_NAME }}
           files: ${{ env.FILE_NAME }}
           body_path: ./release_notes.txt
         env:
