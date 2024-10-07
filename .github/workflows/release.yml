@@ -34,7 +34,7 @@ jobs:
           if [ -z "$NOTES" ]; then
             NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d' | base64)
           fi
-          echo "RELEASE_NOTES=${NOTES}" >> $GITHUB_ENV
+          ${NOTES} > release_notes.txt
 
       - name: Build
         run: |
@@ -53,8 +53,7 @@ jobs:
         with:
           tag: ${{ github.ref }}
           files: ${{ env.FILE_NAME }}
-          body: |
-            $(echo "${{ env.RELEASE_NOTES }}" | base64 --decode)
+          body_path: ./release_notes.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
