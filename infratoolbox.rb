@@ -3,7 +3,7 @@ class Infratoolbox < Formule
     homepage "https://github.com/dainer88/infratoolbox"
     url "https://github.com/dainer88/infratoolbox/releases/download/refs/tags/v0.1.0/infratoolbox-v0.1.0.tar.gz"
     version "0.1.0"
-    sha256 "3c93081f73b7c17becf377d9a0f3d0fb3139805fd5f58bf9d6522182401be82d"
+    sha256 "235e67da3c0eae876fe1f0296e6a5f92c4abcdf5b826d7be7e598cf5739bb738"
 
     def install
         bin.install "infratoolbox"
