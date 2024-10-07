@@ -30,9 +30,9 @@ jobs:
       - name: Get changelog entry
         id: get_changelog
         run: |
-          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d' | base64)
+          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
           if [ -z "$NOTES" ]; then
-            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d' | base64)
+            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d')
           fi
           echo "${NOTES}" > release_notes.txt
 
