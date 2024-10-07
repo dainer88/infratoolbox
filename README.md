@@ -134,4 +134,4 @@ InfraToolbox utilizes the following open-source tools:
 
 ## License
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-default.svg)](./LICENSE)
