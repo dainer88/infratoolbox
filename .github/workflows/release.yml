@@ -30,11 +30,11 @@ jobs:
       - name: Get changelog entry
         id: get_changelog
         run: |
-          TAG_ENTRY=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d' | sed 's/[$`"\\]/\\&/g')
-          if [ -z "$TAG_ENTRY" ]; then
-            TAG_ENTRY=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d' | sed 's/[$`"\\]/\\&/g')
+          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d' | base64)
+          if [ -z "$NOTES" ]; then
+            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d' | base64)
           fi
-          echo "TAG_DESCRIPTION=${TAG_ENTRY}" >> $GITHUB_ENV
+          echo "RELEASE_NOTES=${NOTES}" >> $GITHUB_ENV
 
       - name: Build
         run: |
@@ -53,7 +53,8 @@ jobs:
         with:
           tag: ${{ github.ref }}
           files: ${{ env.FILE_NAME }}
-          body: ${{ env.TAG_DESCRIPTION }}
+          body: |
+            $(echo "${{ env.RELEASE_NOTES }}" | base64 --decode)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
