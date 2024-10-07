@@ -30,10 +30,11 @@ jobs:
       - name: Get changelog entry
         id: get_changelog
         run: |
-          TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
+          TAG_ENTRY=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
           if [ -z "$TAG_ENTRY" ]; then
-            TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^$/" CHANGELOG.md | sed '1d')
+            TAG_ENTRY=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d')
           fi
+          echo "${TAG_ENTRY}"
           echo "TAG_DESCRIPTION=${TAG_ENTRY}" >> $GITHUB_ENV
 
       - name: Build
