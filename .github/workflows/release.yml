@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: write
@@ -12,66 +12,62 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.23.2'
-    
-    - name: Get tag name
-      run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.23.2"
 
-    - name: Define FILE_NAME
-      run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}.tar.gz" >> $GITHUB_ENV
-    
-    - name: Get changelog entry
-      id: get_changelog
-      run: |
-        TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
-        if [ -z "$TAG_ENTRY" ]; then
-          TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^$/" CHANGELOG.md | sed '1d')
-        fi
-        echo "TAG_DESCRIPTION=${TAG_ENTRY}" >> $GITHUB_ENV
-    
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-    - name: Build
-      run: |
-        go mod init github.com/dainer88/infratoolbox
-        go mod tidy
-        go build
-        tar -cvzf ${{ env.FILE_NAME }} infratoolbox
+      - name: Define FILE_NAME
+        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}.tar.gz" >> $GITHUB_ENV
 
-    - name: Calculate SHA256
-      id: sha256
-      run: |
-        echo "SHA256=$(sha256sum ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
+      - name: Get changelog entry
+        id: get_changelog
+        run: |
+          TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
+          if [ -z "$TAG_ENTRY" ]; then
+            TAG_ENTRY=$(awk "/\\[$TAG_NAME\\]/,/^$/" CHANGELOG.md | sed '1d')
+          fi
+          echo "TAG_DESCRIPTION=${TAG_ENTRY}" >> $GITHUB_ENV
 
-    - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag: ${{ github.ref }}
-        files: ${{ env.FILE_NAME }}
-        body: ${{ env.TAG_DESCRIPTION }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: |
+          go mod init github.com/dainer88/infratoolbox
+          go mod tidy
+          go build
+          tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
-    - name: Update Homebrew Formula
-      run: |
-        FORMULA_FILE="infratoolbox.rb"
-      
-        sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/${{ env.FILE_NAME }}\"|" $FORMULA_FILE
-        sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
-  
-    - name: Push changes to Homebrew formula
-      run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        git add infratoolbox.rb
-        git commit -am "Update Homebrew formule for release ${{ env.TAG_NAME }}"
-        git push origin HEAD:refs/heads/master
+      - name: Calculate SHA256
+        id: sha256
+        run: |
+          echo "SHA256=$(sha256sum ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
 
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag: ${{ github.ref }}
+          files: ${{ env.FILE_NAME }}
+          body: ${{ env.TAG_DESCRIPTION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Homebrew Formula
+        run: |
+          FORMULA_FILE="infratoolbox.rb"
+
+          sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/${{ env.FILE_NAME }}\"|" $FORMULA_FILE
+          sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
+
+      - name: Push changes to Homebrew formula
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add infratoolbox.rb
+          git commit -am "Update Homebrew formule for release ${{ env.TAG_NAME }}"
+          git push origin HEAD:refs/heads/master
