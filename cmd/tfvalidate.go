@@ -11,6 +11,7 @@ import (
 var verifyCmd = &cobra.Command{
     Use:   "validate",
     Short: "Run terraform validate",
+    DisableFlagParsing: true,
     Run: func(cmd *cobra.Command, args []string) {
         fmt.Println("Running terraform validate with arguments:", args)
         runTerraformVerify(args)
