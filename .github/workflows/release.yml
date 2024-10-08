@@ -71,3 +71,5 @@ jobs:
           git add infratoolbox.rb
           git commit -am "Update Homebrew formule for release ${{ env.TAG_NAME }}"
           git push origin HEAD:refs/heads/master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
