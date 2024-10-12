@@ -12,6 +12,7 @@ out/
 
 # Go module files
 *.mod
+*.sum
 
 # IDE and Editor specific files
 .vscode/
