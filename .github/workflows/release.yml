@@ -38,7 +38,6 @@ jobs:
           go mod init github.com/dainer88/infratoolbox
           go mod tidy
           go build
-          chmod +x infratoolbox
           tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
       - name: Calculate SHA256
