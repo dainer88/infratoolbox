@@ -15,4 +15,3 @@ class Infratoolbox < Formula
     depends_on "tflint"
     depends_on "checkov"
 end
-  
