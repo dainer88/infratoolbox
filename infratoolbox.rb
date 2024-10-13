@@ -9,7 +9,6 @@ class Infratoolbox < Formula
         bin.install "infratoolbox"
     end
 
-    depends_on "terraform"
     depends_on "terraform-docs"
     depends_on "tfenv"
     depends_on "tflint"
