@@ -11,6 +11,7 @@ import (
 var tfdocCmd = &cobra.Command{
     Use:   "doc",
     Short: "Run terraform doc",
+    DisableFlagParsing: true,
     Run: func(cmd *cobra.Command, args []string) {
         runTerraformDoc(args)
     },

@@ -11,6 +11,7 @@ import (
 var checkovCmd = &cobra.Command{
     Use:   "scan",
     Short: "Run scan to perform security scan",
+    DisableFlagParsing: true,
     Run: func(cmd *cobra.Command, args []string) {
         fmt.Println("Running scan with arguments:", args)
         runCheckov(args)

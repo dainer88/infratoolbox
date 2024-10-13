@@ -11,6 +11,7 @@ import (
 var lintCmd = &cobra.Command{
     Use:   "lint",
     Short: "Run TFLint to lint Terraform code",
+    DisableFlagParsing: true,
     Run: func(cmd *cobra.Command, args []string) {
         fmt.Println("Running lint with arguments:", args)
         runTfLint(args)
