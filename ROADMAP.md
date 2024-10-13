@@ -6,10 +6,9 @@ This document outlines the proposed features and improvements planned for InfraT
 
 ### Features
 
-- **Terragrunt Integration**: Extend InfraToolbox to support running Terragrunt commands alongside Terraform.
+- **Merge File**: Extend InfraToolbox to support merging Terraform variable files, preventing variable duplication and simplifying configuration management.
+- **Terragrunt Integration**: Integrate support for running Terragrunt commands alongside Terraform, enabling users to leverage both tools seamlessly within InfraToolbox.
 - **Pre-built Module Templates**: Provide pre-built Terraform module templates for popular cloud services (AWS, Azure, GCP).
-- **Auto-Update Mechanism**: Implement an auto-update mechanism so users can receive the latest versions without manual intervention.
-- **Parallel Task Execution**: Add support for running multiple commands (e.g., `terraform plan` and `tflint`) in parallel to optimize execution time.
 
 ### Enhancements
 
@@ -23,6 +22,8 @@ This document outlines the proposed features and improvements planned for InfraT
 - **State Management Insights**: Integrate a feature to visualize information about the state of resources managed by Terraform, showing recent changes and their current state.
 - **Resource Drift Detection**: Implement infrastructure drift detection that automatically notifies when resources change outside of Terraform control.
 - **Custom Alerts**: Enable custom alert configurations triggered by specific infrastructure events.
+- **Auto-Update Mechanism**: Implement an auto-update mechanism so users can receive the latest versions without manual intervention.
+- **Parallel Task Execution**: Add support for running multiple commands (e.g., `terraform plan` and `tflint`) in parallel to optimize execution time.
 
 ## v0.4.0 - Advanced Security
 
