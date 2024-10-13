@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  create-release:
+  create-release-macos:
     runs-on: macos-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Define FILE_NAME
-        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}.tar.gz" >> $GITHUB_ENV
+        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-macos.tar.gz" >> $GITHUB_ENV
 
       - name: Get changelog entry
         id: get_changelog
