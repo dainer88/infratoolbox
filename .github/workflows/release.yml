@@ -58,7 +58,7 @@ jobs:
         run: |
           FORMULA_FILE="infratoolbox.rb"
 
-          sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${GITHUB_REF}/${{ env.FILE_NAME }}\"|" $FORMULA_FILE
+          sed -i.bak "s|url .*|url \"https://github.com/dainer88/infratoolbox/releases/download/${{env.TAG_NAME}}/${{ env.FILE_NAME }}\"|" $FORMULA_FILE
           sed -i.bak "s|sha256 .*|sha256 \"${{ env.SHA256 }}\"|" $FORMULA_FILE
 
       - name: Push changes to Homebrew formula
