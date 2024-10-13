@@ -7,7 +7,7 @@ class Infratoolbox < Formula
 
     def install
         bin.install "infratoolbox"
-        system "chmod", "0755", "#{bin}/infratoolbox"
+        chmod 0755 "/opt/homebrew/bin/infratoolbox"
     end
 
     depends_on "terraform-docs"
