@@ -1,9 +1,9 @@
 class Infratoolbox < Formula
     desc "InfraToolbox integrates Terraform, Terraform Docs, TFEnv, TFLint, and other tools into a single CLI for managing infrastructure efficiently."
     homepage "https://github.com/dainer88/infratoolbox"
-    url "https://github.com/dainer88/infratoolbox/releases/download/v0.1.0/infratoolbox-v0.1.0.tar.gz"
+    url "https://github.com/dainer88/infratoolbox/releases/download/v0.1.0/infratoolbox-v0.1.0-macos.tar.gz"
     version "v0.1.0"
-    sha256 "a1a0ce23d0b39ea85c2c459cc3165d5d5f159bd6dc056f1c0d89f17c1a8e4aaa"
+    sha256 "bdc6b2066e9ca7dd5ce01aeb15b2b73d6cacc3d5f9c29615a0355543852f5a25"
 
     def install
         bin.install "infratoolbox"
