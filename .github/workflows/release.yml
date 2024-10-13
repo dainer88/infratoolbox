@@ -44,7 +44,7 @@ jobs:
       - name: Calculate SHA256
         id: sha256
         run: |
-          echo "SHA256=$(sha256sum ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
+          echo "SHA256=$(shasum -a 256 ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2.0.8
