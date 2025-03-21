@@ -27,11 +27,11 @@ function install_tool {
 }
 
 # Install necessary tools using Homebrew
-install_tool terraform
 install_tool terraform-docs
 install_tool tfenv
 install_tool tflint
 install_tool checkov
+install_tool terragrunt
 
 # Create installation directory
 INSTALL_DIR="/usr/local/bin"
