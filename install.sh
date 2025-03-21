@@ -9,29 +9,71 @@ function echo_message {
     echo "=============================="
 }
 
-# Check if Homebrew is installed
-if ! command -v brew &> /dev/null; then
-    echo_message "Homebrew is not installed. Please install it first."
-    exit 1
-fi
+# Detect the operating system
+OS=$(uname -s)
 
 # Function to install a tool if it's not already installed
 function install_tool {
     TOOL_NAME=$1
+    INSTALL_CMD=$2
     if command -v $TOOL_NAME &> /dev/null; then
         echo_message "$TOOL_NAME is already installed. Skipping installation."
     else
         echo_message "Installing $TOOL_NAME..."
-        brew install $TOOL_NAME
+        eval $INSTALL_CMD
     fi
 }
 
-# Install necessary tools using Homebrew
-install_tool terraform-docs
-install_tool tfenv
-install_tool tflint
-install_tool checkov
-install_tool terragrunt
+# Install necessary tools based on the operating system
+case "$OS" in
+    Darwin) # macOS
+        echo_message "Detected macOS. Using Homebrew for installation."
+        if ! command -v brew &> /dev/null; then
+            echo_message "Homebrew is not installed. Please install it first."
+            exit 1
+        fi
+        install_tool terraform-docs "brew install terraform-docs"
+        install_tool tfenv "brew install tfenv"
+        install_tool tflint "brew install tflint"
+        install_tool checkov "brew install checkov"
+        install_tool terragrunt "brew install terragrunt"
+        ;;
+    Linux) # Linux
+        echo_message "Detected Linux. Using apt or yum for installation."
+        if command -v apt &> /dev/null; then
+            install_tool terraform-docs "sudo apt update && sudo apt install -y terraform-docs"
+            install_tool tfenv "sudo apt update && sudo apt install -y tfenv"
+            install_tool tflint "sudo apt update && sudo apt install -y tflint"
+            install_tool checkov "sudo apt update && sudo apt install -y python3-pip && pip3 install checkov"
+            install_tool terragrunt "sudo apt update && sudo apt install -y terragrunt"
+        elif command -v yum &> /dev/null; then
+            install_tool terraform-docs "sudo yum install -y terraform-docs"
+            install_tool tfenv "sudo yum install -y tfenv" 
+            install_tool tflint "sudo yum install -y tflint"
+            install_tool checkov "sudo yum install -y python3 && pip3 install checkov"
+            install_tool terragrunt "sudo yum install -y terragrunt"
+        else
+            echo_message "Neither apt nor yum package manager found. Please install dependencies manually."
+            exit 1
+        fi
+        ;;
+    CYGWIN*|MINGW*|MSYS*|Windows_NT) # Windows
+        echo_message "Detected Windows. Using Chocolatey for installation."
+        if ! command -v choco &> /dev/null; then
+            echo_message "Chocolatey is not installed. Please install it first: https://chocolatey.org/install"
+            exit 1
+        fi
+        install_tool terraform-docs "choco install terraform-docs -y"
+        install_tool tfenv "choco install tfenv -y"
+        install_tool tflint "choco install tflint -y"
+        install_tool checkov "choco install python -y && pip install checkov"
+        install_tool terragrunt "choco install terragrunt -y"
+        ;;
+    *)
+        echo_message "Unsupported operating system: $OS"
+        exit 1
+        ;;
+esac
 
 # Create installation directory
 INSTALL_DIR="/usr/local/bin"
@@ -49,7 +91,7 @@ else
     exit 1
 fi
 
-# Configurar auto-completado
+# Configure auto-completion
 echo "Setting up shell auto-completion..."
 
 # Bash
