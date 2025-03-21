@@ -106,6 +106,9 @@ jobs:
     needs: [create-release-macos, create-release-linux, create-release-windows]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.0
+
       - name: Download macOS artifact
         uses: actions/download-artifact@v4
         with:
@@ -152,11 +155,8 @@ jobs:
     needs: create-github-release
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4.2.0
-        with:
-          repository: dainer88/infratoolbox # Cambia esto si el archivo está en otro repositorio
-          ref: main
 
       - name: Download macOS artifact
         uses: actions/download-artifact@v4
