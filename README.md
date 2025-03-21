@@ -1,6 +1,40 @@
 # InfraToolbox
 
-InfraToolbox integrates Terraform, Terraform Docs, TFEnv, TFLint, Checkov, into a single CLI for managing infrastructure efficiently. It simplifies the execution of multiple infrastructure-as-code tools, providing a unified interface for everyday operations.
+InfraToolbox es una herramienta CLI para gestionar infraestructura como código, integrando soporte para Terraform, Terragrunt y módulos preconstruidos para servicios en la nube.
+
+## Características
+- Ejecuta comandos de Terraform y Terragrunt.
+- Genera módulos preconstruidos para AWS, Azure y GCP.
+- Fusiona múltiples archivos de configuración de Terraform.
+- Fácil de usar y extensible.
+
+## Instalación Rápida
+### Usando Go
+```bash
+go install github.com/tuusuario/infratoolbox@latest
+```
+
+### Desde el código fuente
+```bash
+git clone https://github.com/tuusuario/infratoolbox.git
+cd infratoolbox
+go build -o infratoolbox
+```
+
+## Uso Básico
+```bash
+# Ejecutar un comando de Terraform
+infratoolbox terraform init
+
+# Generar un módulo preconstruido
+infratoolbox template aws s3 my-s3-module
+```
+
+## Documentación
+- [Guía de instalación](docs/installation.md)
+- [Casos de uso avanzados](docs/advanced-usage.md)
+- [Resolución de problemas](docs/troubleshooting.md)
+- [Contribuir al proyecto](docs/contributing.md)
 
 ## Features
 
@@ -33,13 +67,32 @@ brew install infratoolbox
 
     ```bash
     cd infratoolbox
-    ````
+    ```
 
 3. Run the install.sh script to install dependencies and configure the environment:
 
     ```bash
     ./install.sh
-    ````
+    ```
+
+## Auto-completion
+
+InfraToolbox automatically sets up shell auto-completion during installation for the following shells:
+
+- **Bash**: The completion script is installed in `/etc/bash_completion.d/`.
+- **Zsh**: The completion script is installed in the Zsh functions directory.
+- **Fish**: The completion script is installed in `~/.config/fish/completions/`.
+- **PowerShell**: The completion script is generated in `$HOME/infratoolbox.ps1`.
+
+### Enabling Auto-completion
+
+- **Bash**: Ensure that Bash completion is enabled on your system.
+- **Zsh**: Ensure that `autoload -U compinit; compinit` is added to your `~/.zshrc`.
+- **Fish**: No additional steps are required.
+- **PowerShell**: Add the following line to your PowerShell profile:
+  ```powershell
+  . $HOME/infratoolbox.ps1
+  ```
 
 ## Usage
 
@@ -72,7 +125,7 @@ To compile InfraToolbox from source, follow these steps:
 
     ```bash
     git clone https://github.com/yourusername/infratoolbox.git
-    ````
+    ```
 
 2. Navigate to the project directory:
 
@@ -86,7 +139,7 @@ To compile InfraToolbox from source, follow these steps:
     go mod init github.com/dainer88/infratoolbox
     go mod tidy
     go build
-    ````
+    ```
 
     This command will compile the project and generate an executable file.
 

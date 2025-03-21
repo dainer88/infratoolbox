@@ -49,5 +49,34 @@ else
     exit 1
 fi
 
+# Configurar auto-completado
+echo "Setting up shell auto-completion..."
+
+# Bash
+if [ -d "/etc/bash_completion.d" ]; then
+    "$INSTALL_DIR/$EXECUTABLE_NAME" completion bash > /etc/bash_completion.d/$EXECUTABLE_NAME
+    echo "Bash completion installed at /etc/bash_completion.d/$EXECUTABLE_NAME"
+fi
+
+# Zsh
+if [ -d "${fpath[1]}" ]; then
+    "$INSTALL_DIR/$EXECUTABLE_NAME" completion zsh > "${fpath[1]}/_$EXECUTABLE_NAME"
+    echo "Zsh completion installed at ${fpath[1]}/_$EXECUTABLE_NAME"
+fi
+
+# Fish
+if [ -d "$HOME/.config/fish/completions" ]; then
+    "$INSTALL_DIR/$EXECUTABLE_NAME" completion fish > "$HOME/.config/fish/completions/$EXECUTABLE_NAME.fish"
+    echo "Fish completion installed at $HOME/.config/fish/completions/$EXECUTABLE_NAME.fish"
+fi
+
+# PowerShell
+if [ -n "$PSModulePath" ]; then
+    "$INSTALL_DIR/$EXECUTABLE_NAME" completion powershell > "$HOME/$EXECUTABLE_NAME.ps1"
+    echo "PowerShell completion script generated at $HOME/$EXECUTABLE_NAME.ps1"
+    echo "To enable it, add the following line to your PowerShell profile:"
+    echo "  . $HOME/$EXECUTABLE_NAME.ps1"
+fi
+
 # Finish
 echo_message "Installation completed. You can run InfraToolbox with the command 'infratoolbox'."
