@@ -48,6 +48,9 @@ jobs:
         uses: actions/setup-go@v5.0.2
         with:
           go-version: "1.23.2"
+      
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Define FILE_NAME
         run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-linux.tar.gz" >> $GITHUB_ENV
@@ -76,9 +79,12 @@ jobs:
         uses: actions/setup-go@v5.0.2
         with:
           go-version: "1.23.2"
+      
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $env:GITHUB_ENV
 
       - name: Define FILE_NAME
-        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-windows.zip" >> $env:GITHUB_ENV
+        run: echo "FILE_NAME=infratoolbox-$env:TAG_NAME-windows.zip" >> $env:GITHUB_ENV
 
       - name: Build
         run: |
@@ -117,6 +123,9 @@ jobs:
         with:
           name: windows-binary
           path: .
+      
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       
       - name: Get changelog entry
         id: get_changelog
