@@ -157,12 +157,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.0
+        with:
+          ref: master
 
       - name: Download macOS artifact
         uses: actions/download-artifact@v4
         with:
           name: macos-binary
           path: .
+
+      - name: Get tag name
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Calculate SHA256
         id: sha256
