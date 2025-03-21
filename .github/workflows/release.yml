@@ -81,10 +81,12 @@ jobs:
           go-version: "1.23.2"
       
       - name: Get tag name
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $env:GITHUB_ENV
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        shell: bash
 
       - name: Define FILE_NAME
-        run: echo "FILE_NAME=infratoolbox-$env:TAG_NAME-windows.zip" >> $env:GITHUB_ENV
+        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-windows.zip" >> $GITHUB_ENV
+        shell: bash
 
       - name: Build
         run: |
@@ -93,7 +95,8 @@ jobs:
           $env:GOOS="windows"
           $env:GOARCH="amd64"
           go build -o infratoolbox.exe
-          Compress-Archive -Path infratoolbox.exe -DestinationPath $env:FILE_NAME
+          $fileName = $env:FILE_NAME
+          Compress-Archive -Path infratoolbox.exe -DestinationPath $fileName
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -133,9 +136,9 @@ jobs:
       - name: Get changelog entry
         id: get_changelog
         run: |
-          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed '$d')
+          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed -e '$d')
           if [ -z "$NOTES" ]; then
-            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed '1d')
+            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed -e '1d')
           fi
           echo "${NOTES}" > release_notes.txt
       - name: Create GitHub Release
