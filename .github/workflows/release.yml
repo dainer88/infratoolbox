@@ -31,11 +31,6 @@ jobs:
           GOOS=darwin GOARCH=amd64 go build -o infratoolbox
           tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
-      - name: Calculate SHA256
-        id: sha256
-        run: |
-          echo "SHA256=$(shasum -a 256 ${{ env.FILE_NAME }} | awk '{ print $1 }')" >> $GITHUB_ENV
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -83,7 +78,7 @@ jobs:
           go-version: "1.23.2"
 
       - name: Define FILE_NAME
-        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-windows.zip" >> $GITHUB_ENV
+        run: echo "FILE_NAME=infratoolbox-${{ env.TAG_NAME }}-windows.zip" >> $env:GITHUB_ENV
 
       - name: Build
         run: |
