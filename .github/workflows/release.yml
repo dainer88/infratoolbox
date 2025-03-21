@@ -89,7 +89,9 @@ jobs:
         run: |
           go mod init github.com/dainer88/infratoolbox
           go mod tidy
-          GOOS=windows GOARCH=amd64 go build -o infratoolbox.exe
+          $env:GOOS="windows"
+          $env:GOARCH="amd64"
+          go build -o infratoolbox.exe
           zip ${{ env.FILE_NAME }} infratoolbox.exe
 
       - name: Upload artifact
