@@ -136,10 +136,7 @@ jobs:
       - name: Get changelog entry
         id: get_changelog
         run: |
-          NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^## / { if (NR>1) print }" CHANGELOG.md | sed -e '$d')
-          if [ -z "$NOTES" ]; then
-            NOTES=$(awk "/\\[${{ env.TAG_NAME }}\\]/,/^$/" CHANGELOG.md | sed -e '1d')
-          fi
+          NOTES=$(awk '/^## /{if (p) exit; p=1; next} p' CHANGELOG.md)
           echo "${NOTES}" > release_notes.txt
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2.0.8
