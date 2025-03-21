@@ -92,7 +92,7 @@ jobs:
           $env:GOOS="windows"
           $env:GOARCH="amd64"
           go build -o infratoolbox.exe
-          zip ${{ env.FILE_NAME }} infratoolbox.exe
+          Compress-Archive -Path infratoolbox.exe -DestinationPath ${{ env.FILE_NAME }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
