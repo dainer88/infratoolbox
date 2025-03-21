@@ -185,13 +185,19 @@ jobs:
         with:
           app-id: ${{ secrets.GH_APP_REPO_CLIENTID }}
           private-key: ${{ secrets.GH_APP_REPO_SECRET }}
+      
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "${{ steps.app-token.outputs.app-slug }}[bot]"
+          git config user.email "${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
           git add infratoolbox.rb
           git commit -m "Update Homebrew formula for version ${{ env.TAG_NAME }}"
-          git push origin master
+          git push
