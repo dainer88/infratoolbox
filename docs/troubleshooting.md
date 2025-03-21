@@ -1,16 +1,21 @@
-# Resolución de Problemas
+# Troubleshooting
 
 ## Error: "command not found"
-Asegúrate de que el directorio `$GOPATH/bin` esté en tu variable de entorno `PATH`.
 
-### Solución:
-Agrega lo siguiente a tu archivo `.bashrc` o `.zshrc`:
+Ensure that the `$GOPATH/bin` directory is in your `PATH` environment variable.
+
+### Solution:
+
+Add the following to your `.bashrc` or `.zshrc` file:
+
 ```bash
 export PATH=$PATH:$(go env GOPATH)/bin
 ```
 
 ## Error: "Terragrunt is not installed"
-InfraToolbox requiere que Terragrunt esté instalado para ejecutar comandos de Terragrunt.
 
-### Solución:
-Instala Terragrunt siguiendo las instrucciones en [terragrunt.io](https://terragrunt.io/).
+InfraToolbox requires Terragrunt to be installed to execute Terragrunt commands.
+
+### Solution:
+
+Install Terragrunt by following the instructions at [terragrunt.io](https://terragrunt.io/).

@@ -1,21 +1,27 @@
-# Casos de Uso Avanzados
+# Advanced Use Cases
 
-## Uso de Terragrunt
-Puedes ejecutar comandos de Terragrunt directamente desde InfraToolbox:
+## Using Terragrunt
+
+You can run Terragrunt commands directly from InfraToolbox:
+
 ```bash
 infratoolbox terragrunt plan --terragrunt-config=terragrunt.hcl
 ```
 
-## Personalización de Módulos Preconstruidos
-Después de generar un módulo preconstruido, puedes personalizar los archivos generados para adaptarlos a tus necesidades:
+## Customizing Pre-built Modules
+
+After generating a pre-built module, you can customize the generated files to suit your needs:
+
 ```bash
-infratoolbox template aws s3 my-custom-s3-module
+infratoolbox module aws s3 my-custom-s3-module
 cd my-custom-s3-module
-# Edita los archivos main.tf, variables.tf, etc.
+# Edit the main.tf, variables.tf, etc. files.
 ```
 
-## Integración con CI/CD
-Ejemplo de un pipeline en GitHub Actions:
+## CI/CD Integration
+
+Example of a pipeline in GitHub Actions:
+
 ```yaml
 name: Terraform Plan
 
@@ -33,7 +39,7 @@ jobs:
 
       - name: Install InfraToolbox
         run: |
-          go install github.com/tuusuario/infratoolbox@latest
+          go install github.com/yourusername/infratoolbox@latest
 
       - name: Run Terraform Plan
         run: |

@@ -1,61 +1,62 @@
 # InfraToolbox
 
-InfraToolbox es una herramienta CLI para gestionar infraestructura como código, integrando soporte para Terraform, Terragrunt y módulos preconstruidos para servicios en la nube.
+InfraToolbox is a CLI tool for managing infrastructure as code, integrating support for Terraform, Terragrunt, and pre-built modules for cloud services.
 
-## Características
-- Ejecuta comandos de Terraform y Terragrunt.
-- Genera módulos preconstruidos para AWS, Azure y GCP.
-- Fusiona múltiples archivos de configuración de Terraform.
-- Fácil de usar y extensible.
+## Features
 
-## Instalación Rápida
-### Usando Go
+- Run Terraform and Terragrunt commands seamlessly.
+- Merge multiple Terraform configuration files into a single file.
+- Lint Terraform code using TFLint.
+- Scan infrastructure for security vulnerabilities using Checkov.
+- Generate Terraform documentation using `terraform-docs`.
+- Auto-completion support for Bash, Zsh, Fish, and PowerShell.
+- Easy to use and extensible.
+
+## Quick Installation
+
+### Using Go
+
 ```bash
-go install github.com/tuusuario/infratoolbox@latest
+go install github.com/yourusername/infratoolbox@latest
 ```
 
-### Desde el código fuente
+### From Source Code
+
 ```bash
-git clone https://github.com/tuusuario/infratoolbox.git
+git clone https://github.com/yourusername/infratoolbox.git
 cd infratoolbox
 go build -o infratoolbox
 ```
 
-## Uso Básico
+## Basic Usage
+
 ```bash
-# Ejecutar un comando de Terraform
+# Run a Terraform command
 infratoolbox terraform init
 
-# Generar un módulo preconstruido
-infratoolbox template aws s3 my-s3-module
+# Merge multiple Terraform files
+infratoolbox merge file1.tf file2.tf --output merged.tf
 ```
 
-## Documentación
-- [Guía de instalación](docs/installation.md)
-- [Casos de uso avanzados](docs/advanced-usage.md)
-- [Resolución de problemas](docs/troubleshooting.md)
-- [Contribuir al proyecto](docs/contributing.md)
+## Documentation
 
-## Features
-
-- **Unified CLI**: Run multiple infrastructure tools like Terraform, Terraform Docs, TFEnv, TFLint, and Checkov with one command-line tool.
-- **Module Creation**: Automatically generate new Terraform module templates, ready for customization.
-- **Security Scans**: Ensure the security of your infrastructure using Checkov.
-- **Linting**: Enforce Terraform best practices by using TFLint.
-- **Plan and Apply**: Streamline Terraform planning and applying commands, ensuring smoother workflow.
+- [Installation Guide](docs/installation.md)
+- [Advanced Use Cases](docs/advanced-usage.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Contributing to the Project](docs/contributing.md)
 
 ## Installation
 
 ### Using Homebrew
 
 ```bash
-brew tap dainer88/infratoolbox https://github.com/dainer88/infratoolbox
+brew tap yourusername/infratoolbox https://github.com/yourusername/infratoolbox
 brew install infratoolbox
 ```
 
-### Manual installation
+### Manual Installation
 
-#### Macos
+#### macOS
 
 1. Clone the repository:
 
@@ -69,7 +70,7 @@ brew install infratoolbox
     cd infratoolbox
     ```
 
-3. Run the install.sh script to install dependencies and configure the environment:
+3. Run the `install.sh` script to install dependencies and configure the environment:
 
     ```bash
     ./install.sh
@@ -90,6 +91,7 @@ InfraToolbox automatically sets up shell auto-completion during installation for
 - **Zsh**: Ensure that `autoload -U compinit; compinit` is added to your `~/.zshrc`.
 - **Fish**: No additional steps are required.
 - **PowerShell**: Add the following line to your PowerShell profile:
+
   ```powershell
   . $HOME/infratoolbox.ps1
   ```
@@ -112,10 +114,12 @@ infratoolbox [command]
 | `init`      | Run `terraform init`                                            |
 | `license`   | Show the license under which InfraToolbox is distributed        |
 | `lint`      | Run TFLint to lint Terraform code                               |
+| `merge`     | Merge multiple Terraform configuration files                    |
 | `module`    | Create a new Terraform module template                          |
 | `plan`      | Run `terraform plan`                                            |
 | `scan`      | Run Checkov to scan infrastructure for security vulnerabilities |
-| `validate`  | Display the current version of InfraToolbox                     |
+| `terragrunt`| Run Terragrunt commands                                         |
+| `validate`  | Validate Terraform configuration                                |
 
 ## Compiling the Project
 
@@ -136,7 +140,7 @@ To compile InfraToolbox from source, follow these steps:
 3. Compile the project:
 
     ```bash
-    go mod init github.com/dainer88/infratoolbox
+    go mod init github.com/yourusername/infratoolbox
     go mod tidy
     go build
     ```
@@ -151,7 +155,7 @@ To compile InfraToolbox from source, follow these steps:
     ./infratoolbox [command]
     ```
 
-    Replace [command] with one of the available commands listed in the Usage section.
+    Replace `[command]` with one of the available commands listed in the Usage section.
 
 5. Optional: Install the executable:
 
@@ -161,7 +165,7 @@ To compile InfraToolbox from source, follow these steps:
     go install
     ```
 
-    This will place the infratoolbox executable in your Go binaries directory, typically $GOPATH/bin or $HOME/go/bin.
+    This will place the `infratoolbox` executable in your Go binaries directory, typically `$GOPATH/bin` or `$HOME/go/bin`.
 
 ## Contributing
 
@@ -180,6 +184,7 @@ InfraToolbox utilizes the following open-source tools:
 - [TFEnv](https://github.com/tfutils/tfenv)
 - [TFLint](https://github.com/terraform-linters/tflint)
 - [Checkov](https://www.checkov.io)
+- [Terragrunt](https://terragrunt.gruntwork.io)
 
 ## Roadmap
 

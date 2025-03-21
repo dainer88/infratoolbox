@@ -1,41 +1,54 @@
-# Guía de Instalación
+# Installation Guide
 
-## Requisitos Previos
-- Go 1.20 o superior.
-- Git instalado en tu sistema.
+## Prerequisites
 
-## Instalación en Diferentes Entornos
+- Go 1.20 or higher.
+- Git installed on your system.
+
+## Installation on Different Environments
 
 ### macOS
-1. Instala Go usando Homebrew:
+
+1. Install Go using Homebrew:
+
    ```bash
    brew install go
    ```
-2. Instala InfraToolbox:
+
+2. Install InfraToolbox:
+
    ```bash
-   go install github.com/tuusuario/infratoolbox@latest
+   go install github.com/yourusername/infratoolbox@latest
    ```
 
 ### Linux
-1. Instala Go:
+
+1. Install Go:
+
    ```bash
    sudo apt update
    sudo apt install golang
    ```
-2. Instala InfraToolbox:
+
+2. Install InfraToolbox:
+
    ```bash
-   go install github.com/tuusuario/infratoolbox@latest
+   go install github.com/yourusername/infratoolbox@latest
    ```
 
 ### Windows
-1. Descarga e instala Go desde [golang.org](https://golang.org/dl/).
-2. Instala InfraToolbox:
+
+1. Download and install Go from [golang.org](https://golang.org/dl/).
+2. Install InfraToolbox:
+
    ```powershell
-   go install github.com/tuusuario/infratoolbox@latest
+   go install github.com/yourusername/infratoolbox@latest
    ```
 
-## Verificar la Instalación
-Ejecuta el siguiente comando para verificar que InfraToolbox está instalado correctamente:
+## Verify Installation
+
+Run the following command to verify that InfraToolbox is installed correctly:
+
 ```bash
 infratoolbox --version
 ```

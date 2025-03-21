@@ -1,14 +1,18 @@
-# Contribuir a InfraToolbox
+# Contributing to InfraToolbox
 
-## Requisitos
-- Go 1.20 o superior.
+## Requirements
+
+- Go 1.20 or higher.
 - Git.
 
-## Pasos para Contribuir
-1. Haz un fork del repositorio.
-2. Crea una rama para tu cambio:
+## Steps to Contribute
+
+1. Fork the repository.
+2. Create a branch for your change:
+
    ```bash
-   git checkout -b feature/nueva-funcionalidad
+   git checkout -b feature/new-feature
    ```
-3. Realiza tus cambios y asegúrate de que las pruebas pasen.
-4. Envía un pull request.
+
+3. Make your changes and ensure all tests pass.
+4. Submit a pull request.
