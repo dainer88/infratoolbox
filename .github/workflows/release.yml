@@ -174,12 +174,6 @@ jobs:
         run: |
           echo "SHA256=$(shasum -a 256 infratoolbox-${{ env.TAG_NAME }}-macos.tar.gz | awk '{ print $1 }')" >> $GITHUB_ENV
 
-      - name: Update Homebrew Formula
-        run: |
-          sed -i.bak "s|url \".*\"|url \"https://github.com/dainer88/infratoolbox/releases/download/${{ env.TAG_NAME }}/infratoolbox-${{ env.TAG_NAME }}-macos.tar.gz\"|" infratoolbox.rb
-          sed -i.bak "s|sha256 \".*\"|sha256 \"${{ env.SHA256 }}\"|" infratoolbox.rb
-          sed -i.bak "s|version \".*\"|version \"${{ env.TAG_NAME }}\"|" infratoolbox.rb
-
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
@@ -192,6 +186,12 @@ jobs:
           ref: ${{ github.head_ref }}
           # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
           persist-credentials: false
+      
+      - name: Update Homebrew Formula
+        run: |
+          sed -i.bak "s|url \".*\"|url \"https://github.com/dainer88/infratoolbox/releases/download/${{ env.TAG_NAME }}/infratoolbox-${{ env.TAG_NAME }}-macos.tar.gz\"|" infratoolbox.rb
+          sed -i.bak "s|sha256 \".*\"|sha256 \"${{ env.SHA256 }}\"|" infratoolbox.rb
+          sed -i.bak "s|version \".*\"|version \"${{ env.TAG_NAME }}\"|" infratoolbox.rb
       
       - name: Get GitHub App User ID
         id: get-user-id
