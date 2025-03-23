@@ -54,28 +54,6 @@ brew tap yourusername/infratoolbox https://github.com/yourusername/infratoolbox
 brew install infratoolbox
 ```
 
-### Manual Installation
-
-#### macOS
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/infratoolbox.git
-   ```
-
-2. Navigate to the directory:
-
-    ```bash
-    cd infratoolbox
-    ```
-
-3. Run the `install.sh` script to install dependencies and configure the environment:
-
-    ```bash
-    ./install.sh
-    ```
-
 ## Auto-completion
 
 InfraToolbox automatically sets up shell auto-completion during installation for the following shells:

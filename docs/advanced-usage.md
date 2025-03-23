@@ -13,7 +13,7 @@ infratoolbox terragrunt plan --terragrunt-config=terragrunt.hcl
 After generating a pre-built module, you can customize the generated files to suit your needs:
 
 ```bash
-infratoolbox module aws s3 my-custom-s3-module
+infratoolbox module my-custom-s3-module
 cd my-custom-s3-module
 # Edit the main.tf, variables.tf, etc. files.
 ```
