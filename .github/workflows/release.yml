@@ -156,7 +156,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4
         with:
           ref: master
 
@@ -185,6 +185,13 @@ jobs:
         with:
           app-id: ${{ secrets.GH_APP_REPO_CLIENTID }}
           private-key: ${{ secrets.GH_APP_REPO_SECRET }}
+      
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.head_ref }}
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
       
       - name: Get GitHub App User ID
         id: get-user-id
