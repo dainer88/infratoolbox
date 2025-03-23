@@ -165,8 +165,6 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
           ref: master
-          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
-          persist-credentials: false
 
       - name: Download macOS artifact
         uses: actions/download-artifact@v4
