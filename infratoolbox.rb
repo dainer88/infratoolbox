@@ -12,25 +12,52 @@ class Infratoolbox < Formula
   depends_on "checkov"
 
   def install
-    # Instalar el binario principal
     bin.install "infratoolbox"
 
-    # Generar y copiar scripts de auto-completado
-    bash_completion.install Utils.safe_popen_read(bin/"infratoolbox", "completion", "bash") => "infratoolbox"
-    zsh_completion.install Utils.safe_popen_read(bin/"infratoolbox", "completion", "zsh") => "_infratoolbox"
-    fish_completion.install Utils.safe_popen_read(bin/"infratoolbox", "completion", "fish") => "infratoolbox.fish"
+    (bash_completion/"infratoolbox").write <<~EOS
+      _infratoolbox() {
+        local cur prev words cword
+        _init_completion || return
+
+        COMPREPLY=( $(compgen -W "$(infratoolbox --help | awk '/^  [a-z]/ {print $1}')" -- "$cur") )
+        return 0
+      }
+      complete -F _infratoolbox infratoolbox
+    EOS
+
+    (zsh_completion/"_infratoolbox").write <<~EOS
+      #compdef infratoolbox
+
+      _infratoolbox() {
+        local -a commands
+        commands=(
+          ${(f)"$(infratoolbox --help | awk '/^  [a-z]/ {print $1}')"}
+        )
+        _describe 'command' commands
+      }
+    EOS
+
+    (fish_completion/"infratoolbox.fish").write <<~EOS
+      function __fish_infratoolbox_complete
+        set -l commands (infratoolbox --help | awk '/^  [a-z]/ {print $1}')
+        for cmd in $commands
+          echo $cmd
+        end
+      end
+
+      complete -c infratoolbox -f -a "(__fish_infratoolbox_complete)"
+    EOS
   end
 
   def post_install
-    # Asegurar permisos correctos para el binario
     system "chmod", "0755", bin/"infratoolbox"
   end
 
   test do
-    # Verificar que el comando principal funciona
     assert_match "InfraToolbox", shell_output("#{bin}/infratoolbox --help")
 
-    # Verificar que los scripts de auto-completado se generen correctamente
-    assert_match "-F _infratoolbox", shell_output("bash -c 'source #{bash_completion}/infratoolbox && complete -p infratoolbox'")
+    assert_predicate bash_completion/"infratoolbox", :exist?
+    assert_predicate zsh_completion/"_infratoolbox", :exist?
+    assert_predicate fish_completion/"infratoolbox.fish", :exist?
   end
 end
