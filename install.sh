@@ -96,28 +96,58 @@ echo "Setting up shell auto-completion..."
 
 # Bash
 if [ -d "/etc/bash_completion.d" ]; then
-    "$INSTALL_DIR/$EXECUTABLE_NAME" completion bash > /etc/bash_completion.d/$EXECUTABLE_NAME
-    echo "Bash completion installed at /etc/bash_completion.d/$EXECUTABLE_NAME"
+    cat << 'EOF' > /etc/bash_completion.d/infratoolbox
+_infratoolbox() {
+    local cur prev words cword
+    _init_completion || return
+
+    COMPREPLY=( $(compgen -W "$(infratoolbox --help | awk '/^  [a-z]/ {print $1}')" -- "$cur") )
+    return 0
+}
+complete -F _infratoolbox infratoolbox
+EOF
+    echo "Bash completion installed at /etc/bash_completion.d/infratoolbox"
 fi
 
 # Zsh
 if [ -d "${fpath[1]}" ]; then
-    "$INSTALL_DIR/$EXECUTABLE_NAME" completion zsh > "${fpath[1]}/_$EXECUTABLE_NAME"
-    echo "Zsh completion installed at ${fpath[1]}/_$EXECUTABLE_NAME"
+    cat << 'EOF' > "${fpath[1]}/_infratoolbox"
+#compdef infratoolbox
+
+_infratoolbox() {
+    local -a commands
+    commands=(
+      ${(f)"$(infratoolbox --help | awk '/^  [a-z]/ {print $1}')"}
+    )
+    _describe 'command' commands
+}
+EOF
+    echo "Zsh completion installed at ${fpath[1]}/_infratoolbox"
 fi
 
 # Fish
 if [ -d "$HOME/.config/fish/completions" ]; then
-    "$INSTALL_DIR/$EXECUTABLE_NAME" completion fish > "$HOME/.config/fish/completions/$EXECUTABLE_NAME.fish"
-    echo "Fish completion installed at $HOME/.config/fish/completions/$EXECUTABLE_NAME.fish"
+    cat << 'EOF' > "$HOME/.config/fish/completions/infratoolbox.fish"
+function __fish_infratoolbox_complete
+    set -l commands (infratoolbox --help | awk '/^  [a-z]/ {print $1}')
+    for cmd in $commands
+        echo $cmd
+    end
+end
+
+complete -c infratoolbox -f -a "(__fish_infratoolbox_complete)"
+EOF
+    echo "Fish completion installed at $HOME/.config/fish/completions/infratoolbox.fish"
 fi
 
 # PowerShell
 if [ -n "$PSModulePath" ]; then
-    "$INSTALL_DIR/$EXECUTABLE_NAME" completion powershell > "$HOME/$EXECUTABLE_NAME.ps1"
-    echo "PowerShell completion script generated at $HOME/$EXECUTABLE_NAME.ps1"
-    echo "To enable it, add the following line to your PowerShell profile:"
-    echo "  . $HOME/$EXECUTABLE_NAME.ps1"
+    cat << 'EOF' > "$HOME/infratoolbox.ps1"
+# PowerShell completion script for infratoolbox
+# Add this line to your PowerShell profile to enable completion:
+# . $HOME/infratoolbox.ps1
+EOF
+    echo "PowerShell completion script generated at $HOME/infratoolbox.ps1"
 fi
 
 # Finish
