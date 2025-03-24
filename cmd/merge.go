@@ -23,8 +23,10 @@ var mergeCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Merging terraform files")
 		output, _ := cmd.Flags().GetString("output")
+		if output != "" {
+			fmt.Println("Merging terraform files")
+		}
 
 		if err := mergeTerraformFiles(args, output); err != nil {
 			fmt.Println("Error:", err)
@@ -44,8 +46,14 @@ func mergeTerraformFiles(files []string, output string) error {
 			return fmt.Errorf("error reading file %s: %w", file, err)
 		}
 
-		// Asegurarse de que el contenido termine con una línea en blanco
-		if len(content) > 0 && content[len(content)-1] != '\n' {
+		if len(content) == 0 {
+			if output != "" {
+				fmt.Printf("Skipping empty file: %s\n", file)
+			}
+			continue
+		}
+
+		if content[len(content)-1] != '\n' {
 			content = append(content, '\n')
 		}
 
@@ -74,7 +82,9 @@ func mergeTerraformFiles(files []string, output string) error {
 		return fmt.Errorf("error writing merged file: %w", err)
 	}
 
-	fmt.Println("Merge completed:", output)
+	if output != "" {
+		fmt.Println("Merge completed:", output)
+	}	
 	return nil
 }
 
