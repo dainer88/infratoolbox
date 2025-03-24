@@ -61,6 +61,7 @@ jobs:
           go mod init github.com/dainer88/infratoolbox
           go mod tidy
           GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o infratoobox
+          ls -l
           ./infratoolbox -v
           tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
