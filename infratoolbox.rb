@@ -3,7 +3,7 @@ class Infratoolbox < Formula
   homepage "https://github.com/dainer88/infratoolbox"
   url "https://github.com/dainer88/infratoolbox/releases/download/v0.2.0/infratoolbox-v0.2.0-macos.tar.gz"
   version "v0.2.0"
-  sha256 "3696e0974e7984e065c12bbd338815e8dfb38bc8022bd599ab485ce7e1091f76"
+  sha256 "f5dfb34ed9ec9bbf13493a2629095a11a9ec20bdf758078c20ff4ad702753bba"
 
   depends_on "terraform-docs"
   depends_on "terragrunt"
