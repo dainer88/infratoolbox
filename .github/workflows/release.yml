@@ -29,6 +29,7 @@ jobs:
           go mod init github.com/dainer88/infratoolbox
           go mod tidy
           GOOS=darwin GOARCH=amd64 go build -o infratoolbox
+          ./infratoolbox -v
           tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
       - name: Upload artifact
@@ -59,7 +60,8 @@ jobs:
         run: |
           go mod init github.com/dainer88/infratoolbox
           go mod tidy
-          GOOS=linux GOARCH=amd64 go build -o infratoolbox
+          GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o infratoobox
+          ./infratoolbox -v
           tar -cvzf ${{ env.FILE_NAME }} infratoolbox
 
       - name: Upload artifact
@@ -95,6 +97,7 @@ jobs:
           $env:GOOS="windows"
           $env:GOARCH="amd64"
           go build -o infratoolbox.exe
+          ./infratoolbox -v
           $fileName = $env:FILE_NAME
           Compress-Archive -Path infratoolbox.exe -DestinationPath $fileName
 
